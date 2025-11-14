@@ -9,12 +9,11 @@ import java.util.Optional;
 
 @Service
 public class TodoService {
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
-    public Todo createTodo() {
-        Todo todo = new Todo("thuvienquocgia", true);
+    public Todo createTodo(Todo todo) {
         return this.todoRepository.save(todo);
     }
 
@@ -32,12 +31,12 @@ public class TodoService {
         return todo.orElse(null);
     }
 
-    public Todo updateTodo(Long id)  {
+    public Todo updateTodo(Long id, Todo body)  {
         Todo todo = this.todoRepository.findById(id).orElse(null);
         if (todo != null) {
-            todo.setUsername("todo updated");
-            this.todoRepository.save(todo);
-            return todo;
+            todo.setUsername(body.getUsername());
+            todo.setDone(body.isDone());
+            return this.todoRepository.save(todo);
         }
         return null;
     }

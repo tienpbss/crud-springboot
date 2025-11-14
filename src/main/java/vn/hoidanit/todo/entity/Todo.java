@@ -19,6 +19,12 @@ public class Todo {
         this.done = done;
     }
 
+    public Todo(Long id, String username, boolean done) {
+        this.id = id;
+        this.username = username;
+        this.done = done;
+    }
+
     @Override
     public String toString() {
         return "Todo{" +

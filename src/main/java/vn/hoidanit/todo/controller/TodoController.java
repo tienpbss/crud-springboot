@@ -1,9 +1,12 @@
 package vn.hoidanit.todo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import vn.hoidanit.todo.entity.Todo;
 import vn.hoidanit.todo.service.TodoService;
+
+import java.util.List;
 
 @RestController
 public class TodoController {
@@ -16,34 +19,38 @@ public class TodoController {
         return "Hello Java Spring Boot!";
     }
 
-    @GetMapping("/create-todo")
-    public String createTodo() {
-        return this.todoService.createTodo().toString();
+    @PostMapping("/todos")
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo body) {
+        Todo newTodo = this.todoService.createTodo(body);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
     }
 
-    @GetMapping("/get-all-todos")
-    public String getAllTodos() {
-        return this.todoService.toString();
+    @GetMapping("/todos")
+    public ResponseEntity<List<Todo>> getAllTodos() {
+        List<Todo> todos = this.todoService.getAllTodos();
+        return ResponseEntity.ok().body(todos);
     }
 
-    @GetMapping("/get-todo-by-id")
-    public Todo getTodoById(String id) {
-        return this.todoService.getTodoById(3L);
+    @GetMapping("/todos/{id}")
+    public ResponseEntity<Todo> getTodoById(@PathVariable Long id) {
+        Todo todo  = this.todoService.getTodoById(id);
+        return ResponseEntity.ok().body(todo);
     }
 
-    @GetMapping("/get-todo-by-username")
-    public Todo getTodoByUsername(String id) {
-        return this.todoService.getTodoByUsername("todo updated");
+//    @GetMapping("/get-todo-by-username")
+//    public Todo getTodoByUsername(String id) {
+//        return this.todoService.getTodoByUsername("todo updated");
+//    }
+
+    @PutMapping("/todos/{id}")
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo  body) {
+        Todo updatedTodo = this.todoService.updateTodo(id, body);
+        return  ResponseEntity.ok().body(updatedTodo);
     }
 
-    @GetMapping("/update-todo")
-    public Todo updateTodo(String id) {
-        return this.todoService.updateTodo(3L);
-    }
-
-    @GetMapping("/delete-todo")
-    public String deleteTodo(String id) {
-        this.todoService.deleteTodoById(3L);
-        return "Deleted todo have id = 3";
+    @DeleteMapping("/todos/{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable Long id) {
+        this.todoService.deleteTodoById(id);
+        return ResponseEntity.ok().body("Deleted todo have id = " + id);
     }
 }
