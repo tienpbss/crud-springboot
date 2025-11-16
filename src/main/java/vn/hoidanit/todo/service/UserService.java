@@ -32,13 +32,14 @@ public class UserService {
     };
 
     public User updateUser(Long id, User input) {
-        if (!this.userRepository.existsById(id)) {
+        Optional<User> userOptional = this.userRepository.findById(id);
+        if (userOptional.isEmpty()) {
             throw new NoSuchElementException("User not found");
         }
         if (this.userRepository.existsByEmail(input.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
-        User user = this.userRepository.findById(id).get();
+        User user = userOptional.get();
         user.setEmail(input.getEmail());
         user.setUsername(input.getUsername());
         return userRepository.save(user);
