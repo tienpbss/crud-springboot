@@ -60,6 +60,6 @@ public class UserController {
         catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
-        return null;
+        return ResponseEntity.noContent().build();
     }
 }
