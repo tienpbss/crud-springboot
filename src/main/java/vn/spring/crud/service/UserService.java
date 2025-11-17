@@ -1,8 +1,8 @@
-package vn.hoidanit.todo.service;
+package vn.spring.crud.service;
 
 import org.springframework.stereotype.Service;
-import vn.hoidanit.todo.entity.User;
-import vn.hoidanit.todo.repository.UserRepository;
+import vn.spring.crud.entity.User;
+import vn.spring.crud.repository.UserRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;

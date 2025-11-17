@@ -1,4 +1,4 @@
-package vn.hoidanit.todo;
+package vn.spring.crud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

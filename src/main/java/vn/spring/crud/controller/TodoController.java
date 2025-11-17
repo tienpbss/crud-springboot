@@ -1,10 +1,10 @@
-package vn.hoidanit.todo.controller;
+package vn.spring.crud.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.hoidanit.todo.entity.Todo;
-import vn.hoidanit.todo.service.TodoService;
+import vn.spring.crud.entity.Todo;
+import vn.spring.crud.service.TodoService;
 
 import java.util.List;
 

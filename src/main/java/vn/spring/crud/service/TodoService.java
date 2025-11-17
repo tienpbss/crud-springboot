@@ -1,8 +1,8 @@
-package vn.hoidanit.todo.service;
+package vn.spring.crud.service;
 
 import org.springframework.stereotype.Service;
-import vn.hoidanit.todo.entity.Todo;
-import vn.hoidanit.todo.repository.TodoRepository;
+import vn.spring.crud.entity.Todo;
+import vn.spring.crud.repository.TodoRepository;
 
 import java.util.List;
 import java.util.Optional;

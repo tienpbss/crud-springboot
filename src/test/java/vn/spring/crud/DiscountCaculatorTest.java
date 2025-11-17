@@ -1,4 +1,4 @@
-package vn.hoidanit.todo;
+package vn.spring.crud;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

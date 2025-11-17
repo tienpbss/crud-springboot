@@ -1,4 +1,4 @@
-package vn.hoidanit.todo;
+package vn.spring.crud;
 
 public class DiscountCaculator {
     public double caculateDiscount(double price) {

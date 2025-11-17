@@ -1,8 +1,8 @@
-package vn.hoidanit.todo.repository;
+package vn.spring.crud.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import vn.hoidanit.todo.entity.Todo;
+import vn.spring.crud.entity.Todo;
 
 import java.util.Optional;
 

@@ -1,45 +1,38 @@
-package vn.hoidanit.todo.entity;
+package vn.spring.crud.entity;
+
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="todos")
-public class Todo {
+@Table(name="users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private boolean done;
+    private String email;
 
-    public Todo() {
+    public User() {
     }
 
-    public Todo(String username, boolean done) {
+    public User(String username, String email) {
         this.username = username;
-        this.done = done;
+        this.email = email;
     }
 
-    public Todo(Long id, String username, boolean done) {
+    public User(Long id, String username, String email) {
         this.id = id;
         this.username = username;
-        this.done = done;
+        this.email = email;
     }
 
     @Override
     public String toString() {
-        return "Todo{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", done=" + done +
+                ", email='" + email + '\'' +
                 '}';
-    }
-
-    public boolean isDone() {
-        return done;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public Long getId() {
@@ -50,11 +43,19 @@ public class Todo {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

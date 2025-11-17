@@ -1,9 +1,9 @@
-package vn.hoidanit.todo.controller;
+package vn.spring.crud.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.hoidanit.todo.entity.User;
-import vn.hoidanit.todo.service.UserService;
+import vn.spring.crud.entity.User;
+import vn.spring.crud.service.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
