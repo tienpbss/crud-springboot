@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vn.spring.crud.entity.User;
 import vn.spring.crud.repository.UserRepository;
+import vn.spring.crud.service.impl.UserServiceImpl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -24,7 +25,7 @@ public class UserServiceTest {
     private  UserRepository userRepository;
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     private User testUser;
 

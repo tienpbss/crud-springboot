@@ -8,49 +8,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+public interface UserService {
+    public User createUser(User user);
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    public List<User> getAllUsers();
 
-    public User createUser(User user) {
-        if (this.userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
-        }
-        return userRepository.save(user);
-    }
+    public Optional<User> getUserById(Long id);
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
-    };
+    public User updateUser(Long id, User input);
 
-    public Optional<User> getUserById(Long id) {
-        return this.userRepository.findById(id);
-    };
-
-    public User updateUser(Long id, User input) {
-        Optional<User> userOptional = this.userRepository.findById(id);
-        if (userOptional.isEmpty()) {
-            throw new NoSuchElementException("User not found");
-        }
-        if (this.userRepository.existsByEmail(input.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
-        }
-        User user = userOptional.get();
-        user.setEmail(input.getEmail());
-        user.setUsername(input.getUsername());
-        return userRepository.save(user);
-    }
-
-    public void deleteUser(Long id) {
-        if (!this.userRepository.existsById(id)) {
-            throw new NoSuchElementException("User not found");
-        }
-        this.userRepository.deleteById(id);
-    }
+    public void deleteUser(Long id);
 
 
 }
