@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import vn.spring.crud.IntegrationTest;
 import vn.spring.crud.entity.User;
 import vn.spring.crud.repository.UserRepository;
 
@@ -17,8 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@ActiveProfiles("test")
+@IntegrationTest
 @AutoConfigureMockMvc
 public class UserControllerIT {
     @Autowired
