@@ -2,6 +2,7 @@ package vn.spring.crud.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.spring.crud.entity.ApiResponse;
 import vn.spring.crud.entity.User;
 import vn.spring.crud.service.UserService;
 
@@ -18,48 +19,29 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        try {
-            return ResponseEntity.ok(this.userService.createUser(user));
-        }
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.ok(ApiResponse.success("Create user successfully", createdUser));
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(this.userService.getAllUsers());
+    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
+        return ResponseEntity.ok(ApiResponse.success("Return all users", userService.getAllUsers()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return this.userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success("Return user with id: " + id, userService.getUserById(id)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User body) {
-        try {
-            return ResponseEntity.ok(this.userService.updateUser(id, body));
-        }
-        catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable Long id, @RequestBody User body) {
+        return ResponseEntity.ok(ApiResponse.success("Update user with id: " + id, userService.updateUser(id, body)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        try {
-            this.userService.deleteUser(id);
-        }
-        catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok(ApiResponse.success("Deleted user with id: " + id));
     }
 }

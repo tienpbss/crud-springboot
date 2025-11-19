@@ -32,18 +32,24 @@ public class UserServiceImpl implements UserService {
     };
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return this.userRepository.findById(id);
+    public User getUserById(Long id) {
+        Optional<User> userOptional = this.userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        else {
+            throw new NoSuchElementException("Can not find user with id: " + id);
+        }
     };
 
     @Override
     public User updateUser(Long id, User input) {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isEmpty()) {
-            throw new NoSuchElementException("User not found");
+            throw new NoSuchElementException("Can not find user with id: " + id);
         }
         if (this.userRepository.existsByEmail(input.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("Email already exists: "+input.getEmail());
         }
         User user = userOptional.get();
         user.setEmail(input.getEmail());
@@ -54,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         if (!this.userRepository.existsById(id)) {
-            throw new NoSuchElementException("User not found");
+            throw new NoSuchElementException("Can not find user with id: " + id);
         }
         this.userRepository.deleteById(id);
     }

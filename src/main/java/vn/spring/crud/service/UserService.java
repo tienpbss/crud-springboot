@@ -13,7 +13,7 @@ public interface UserService {
 
     public List<User> getAllUsers();
 
-    public Optional<User> getUserById(Long id);
+    public User getUserById(Long id);
 
     public User updateUser(Long id, User input);
 
