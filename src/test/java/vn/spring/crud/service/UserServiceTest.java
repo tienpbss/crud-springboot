@@ -64,12 +64,22 @@ public class UserServiceTest {
         Assertions.assertEquals(1, result.size());
         verify(userRepository, times(1)).findAll();
     }
-
     @Test
-    public void getUserById_shouldReturnUserOptional() {
+    public void getUserById_shouldThrowException_whenUserNotFound() {
+        Long id = 999L;
+        when(this.userRepository.findById(id)).thenReturn(Optional.empty());
+        Exception ex = Assertions.assertThrows(NoSuchElementException.class, () -> {
+            this.userService.getUserById(id);
+        });
+        Assertions.assertEquals("Can not find user with id: " + id, ex.getMessage());
+        verify(this.userRepository, times(1)).findById(anyLong());
+
+    }
+    @Test
+    public void getUserById_shouldReturnUser_whenSuccess() {
         when(this.userRepository.findById(anyLong())).thenReturn(Optional.of(testUser));
-        Optional<User> result = this.userService.getUserById(1L);
-        Assertions.assertTrue(result.isPresent());
+        User result = this.userService.getUserById(1L);
+        Assertions.assertEquals(testUser.getUsername(), result.getUsername());
         verify(this.userRepository, times(1)).findById(anyLong());
     }
 
@@ -114,11 +124,12 @@ public class UserServiceTest {
 
     @Test
     public void deleteUser_shouldThrowException_whenUserNotFound() {
-        when(this.userRepository.existsById(anyLong())).thenReturn(false);
+        Long id = 2L;
+        when(this.userRepository.existsById(id)).thenReturn(false);
         Exception ex= Assertions.assertThrows(NoSuchElementException.class, () -> {
-            this.userService.deleteUser(1L);
+            this.userService.deleteUser(id);
         });
-        Assertions.assertEquals("User not found", ex.getMessage());
+        Assertions.assertEquals("Can not find user with id: " + id, ex.getMessage());
         verify(this.userRepository, times(1)).existsById(anyLong());
         verify(this.userRepository, never()).deleteById(anyLong());
     }
